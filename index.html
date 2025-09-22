@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Brave Animated Mobile Legends Overlay</title>
+<title>Brave Enhanced Mobile Legends Overlay</title>
 <style>
   html, body {
     margin: 0; padding: 0; overflow: hidden;
@@ -11,7 +11,7 @@
     background: transparent;
     font-family: Arial, sans-serif;
   }
-  /* Oben und unten Balken mit Wasserfall und Blitz Effekten */
+  /* Balken mit Textur und Farbverlauf */
   .bar {
     position: fixed;
     left: 0; width: 100%;
@@ -19,37 +19,67 @@
     box-sizing: border-box;
     background: linear-gradient(270deg,
       #0c1a3e, #1f3175, #082a67, #113a87, #083373, #0c1a3e);
-    background-size: 800% 800%;
+    background-size: 900% 900%;
     border-top: 3px solid #0853b7;
     border-bottom: 3px solid #071d50;
-    animation: gradientShift 30s ease infinite;
-    box-shadow: 0 0 40px rgba(13, 16, 37, 0.9);
+    animation: gradientShift 60s ease infinite;
+    box-shadow: 0 0 50px rgba(13, 16, 37, 0.9);
     z-index: 9999;
     overflow: hidden;
   }
-  .top-bar {
-    top: 0;
-  }
-  .bottom-bar {
-    bottom: 0;
-  }
-  /* Wasserfall-Blitz Overlay */
-  .bar::after {
-    content: '';
+  .top-bar { top: 0; }
+  .bottom-bar { bottom: 0; }
+
+  /* Zusätzliche feine Textur über Balken */
+  .texture {
     position: absolute;
-    top: 0; left: -25%;
-    width: 25%; height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02) 2px, transparent 2px, transparent 4px),
+      repeating-linear-gradient(-45deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02) 2px, transparent 2px, transparent 4px);
+    pointer-events: none;
+    z-index: 9980;
+  }
+
+  /* Blitz-Schlagsimulation */
+  .lightning {
+    position: absolute;
+    top: 0; width: 10%; height: 100%;
     background: linear-gradient(
       120deg,
       transparent 0%,
-      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0.6) 40%,
+      rgba(255, 255, 255, 0.9) 50%,
+      rgba(255, 255, 255, 0.6) 60%,
       transparent 100%);
     transform: skewX(-20deg);
-    animation: lightningMove 3s linear infinite;
-    filter: drop-shadow(0 0 5px #70c1ff);
+    filter: drop-shadow(0 0 8px #70c1ff);
+    opacity: 0;
+    animation: lightningStrike 20s linear infinite;
   }
 
-  /* Mittlerer Gameplay Bereich transparent */
+  /* Mehrere Blitze mit unterschiedlichen Verzögerungen */
+  .lightning:nth-child(1) {
+    left: -15%;
+    animation-delay: 0s;
+  }
+  .lightning:nth-child(2) {
+    left: -40%;
+    animation-delay: 6.5s;
+    width: 8%;
+    opacity: 0.3;
+    filter: drop-shadow(0 0 4px #70b8ff);
+  }
+  .lightning:nth-child(3) {
+    left: -70%;
+    animation-delay: 13s;
+    width: 12%;
+    opacity: 0.15;
+    filter: drop-shadow(0 0 6px #709bff);
+  }
+
+  /* Transparenter Gameplay Bereich */
   .gameplay {
     position: fixed;
     top: 96px; bottom: 96px;
@@ -58,16 +88,16 @@
     z-index: 1;
   }
 
-  /* Vergrößerter Kamera-Platzhalter ca 20% Breite */
+  /* Kamera-Bereich 10% kleiner, transparent innen */
   .camera {
     position: fixed;
     bottom: 110px;
     left: 20px;
-    width: 640px;
-    height: 360px;
+    width: 576px;  /* ca. 10% kleiner */
+    height: 324px; /* ca. 10% kleiner */
     border: 4px solid #1f5fe2;
     box-shadow: 0 0 40px #1f5fe2;
-    background-color: rgba(8, 41, 87, 0.8);
+    background-color: transparent; /* komplett durchsichtig innen */
     border-radius: 12px;
     z-index: 10000;
   }
@@ -78,18 +108,28 @@
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
-  @keyframes lightningMove {
-    0% { left: -25%; opacity: 0.2; }
-    45% { opacity: 1; }
-    55% { opacity: 1; }
-    100% { left: 125%; opacity: 0.2; }
+
+  @keyframes lightningStrike {
+    0%, 15%, 85%, 100% {
+      opacity: 0;
+      left: -20%;
+    }
+    20%, 30% {
+      opacity: 1;
+      left: 120%;
+    }
+    80% {
+      opacity: 1;
+      left: 110%;
+    }
   }
 </style>
 </head>
 <body>
-  <div class="bar top-bar"></div>
-  <div class="bar bottom-bar"></div>
-  <div class="gameplay"></div>
-  <div class="camera"></div>
-</body>
-</html>
+  <div class="bar top-bar">
+    <div class="texture"></div>
+    <div class="lightning"></div>
+    <div class="lightning"></div>
+    <div class="lightning"></div>
+  </div>
+  <div class="bar bottom
