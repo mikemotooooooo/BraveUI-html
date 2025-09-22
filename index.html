@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Brave Finales Mobile Legends Overlay</title>
+<title>Brave Finales Mobile Legends Overlay Schlanker Balken</title>
 <style>
   html, body {
     margin: 0; padding: 0; overflow: hidden;
@@ -11,29 +11,29 @@
     background: transparent;
     font-family: Arial, sans-serif;
   }
-  /* Oberer Balken (kleiner) */
+  /* Oberer Balken (schmaler) */
   .bar-top {
     position: fixed;
     left: 0; top: 0; width: 100%;
-    height: 60px; /* passt dem Screenshot an */
+    height: 40px; /* schmaler */
     background: linear-gradient(270deg, #0c1a3e 0%, #1f3175 50%, #0c1a3e 100%);
     background-size: 900% 900%;
-    border-bottom: 4px solid #2196f3;
-    box-shadow: 0 0 32px #0e226e inset, 0 2px 16px #016cd2;
+    border-bottom: 3px solid #2196f3;
+    box-shadow: 0 0 24px #0e226e inset, 0 2px 12px #016cd2;
     z-index: 100;
     animation: gradientShift 50s linear infinite;
     overflow: visible;
   }
 
-  /* Unterer Balken (größer, für dickeren Letterbox) */
+  /* Unterer Balken (schmaler) */
   .bar-bottom {
     position: fixed;
     left: 0; bottom: 0; width: 100%;
-    height: 120px; /* passt deinem Screenshot an */
+    height: 40px; /* schmaler */
     background: linear-gradient(90deg, #071d50 0%, #113a87 60%, #083373 100%);
     background-size: 800% 800%;
-    border-top: 4px solid #1563c7;
-    box-shadow: 0 0 32px #13215c inset, 0 -2px 16px #016cb2;
+    border-top: 3px solid #1563c7;
+    box-shadow: 0 0 24px #13215c inset, 0 -2px 12px #016cb2;
     z-index: 100;
     animation: gradientShift 70s linear infinite reverse;
     overflow: visible;
@@ -54,7 +54,7 @@
   /* Kamera sichtbar unten links */
   .camera {
     position: fixed;
-    bottom: 140px;
+    bottom: 50px; /* 40px Balken +10px Abstand */
     left: 36px;
     width: 320px; /* kleiner */
     height: 180px;
@@ -84,9 +84,9 @@
     filter: blur(2px);
   }
   /* Unten auch Blitze */
-  .bar-bottom .zigzag { top: 38px; left: 60%; }
-  .bar-bottom .zigzag2 { top: 60px; left: 25%; }
-  .bar-bottom .zigzag3 { top: 80px; left: 85%; }
+  .bar-bottom .zigzag { top: 8px; left: 60%; }
+  .bar-bottom .zigzag2 { top: 22px; left: 25%; }
+  .bar-bottom .zigzag3 { top: 35px; left: 85%; }
 
   /* Animationen */
   @keyframes gradientShift {
