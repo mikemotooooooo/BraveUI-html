@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Brave Finales Mobile Legends Overlay Schlanker Balken</title>
+<title>Blitz Brave Mobile Legends Overlay</title>
 <style>
   html, body {
     margin: 0; padding: 0; overflow: hidden;
@@ -11,113 +11,114 @@
     background: transparent;
     font-family: Arial, sans-serif;
   }
-  /* Oberer Balken (schmaler) */
+  /* Oberer Balken: ca. 22px */
   .bar-top {
     position: fixed;
     left: 0; top: 0; width: 100%;
-    height: 40px; /* schmaler */
-    background: linear-gradient(270deg, #0c1a3e 0%, #1f3175 50%, #0c1a3e 100%);
-    background-size: 900% 900%;
-    border-bottom: 3px solid #2196f3;
-    box-shadow: 0 0 24px #0e226e inset, 0 2px 12px #016cd2;
+    height: 22px;
+    background: linear-gradient(266deg, #071d50 0%, #16aaff 30%, #071d50 100%);
+    border-bottom: 2px solid #21f3ae;
+    box-shadow: 0 2px 16px #021840 inset, 0 2px 8px #21f3ae;
     z-index: 100;
-    animation: gradientShift 50s linear infinite;
     overflow: visible;
   }
 
-  /* Unterer Balken (schmaler) */
+  /* Unterer Balken: ca. 34px */
   .bar-bottom {
     position: fixed;
     left: 0; bottom: 0; width: 100%;
-    height: 40px; /* schmaler */
-    background: linear-gradient(90deg, #071d50 0%, #113a87 60%, #083373 100%);
-    background-size: 800% 800%;
-    border-top: 3px solid #1563c7;
-    box-shadow: 0 0 24px #13215c inset, 0 -2px 12px #016cb2;
+    height: 34px;
+    background: linear-gradient(270deg, #021840 0%, #12c1ed 60%, #021840 100%);
+    border-top: 2px solid #1ea78d;
+    box-shadow: 0 0 18px #18b3a0 inset, 0 -2px 8px #1ea78d;
     z-index: 100;
-    animation: gradientShift 70s linear infinite reverse;
     overflow: visible;
   }
 
-  /* Zusätzliche Linien/Struktur-Textur für mehr plastischen Look */
   .texture {
     position: absolute; left: 0; top: 0;
     width: 100%; height: 100%;
     background-image:
-      linear-gradient(0deg, rgba(160,196,255,0.09) 1px, transparent 1px, transparent 12px),
-      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 16px);
-    background-size: 100% 12px, 16px 100%;
+      linear-gradient(0deg, rgba(160,196,255,0.15) 1px, transparent 1px, transparent 8px),
+      linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px, transparent 12px);
+    background-size: 100% 8px, 12px 100%;
     pointer-events: none;
-    z-index: 105;
+    z-index: 104;
   }
-
-  /* Kamera sichtbar unten links */
+  /* Kamera unten links */
   .camera {
     position: fixed;
-    bottom: 50px; /* 40px Balken +10px Abstand */
+    bottom: 48px; /* 34px Balken +14px Abstand */
     left: 36px;
-    width: 320px; /* kleiner */
+    width: 320px;
     height: 180px;
-    border: 4px solid #29a0fd;
-    box-shadow: 0 0 28px #1f5fe2;
-    background-color: transparent; /* echt durchsichtig */
-    border-radius: 14px;
+    border: 3px solid #29a0fd;
+    box-shadow: 0 0 24px #1f5fe2;
+    background-color: transparent;
+    border-radius: 12px;
     z-index: 200;
   }
-
-  /* Zacken-Blitz SVG (sichtbar als strahlender Licht-Bolt) */
-  .zigzag {
-    position: absolute; top: 8px; left: 20%; width: 70px; height: 44px;
+  /* Blitz SVG mit wildem Verlauf, mehrere Varianten für „Echtblitz“-Feeling */
+  .realbolt {
+    position: absolute; top: 0; left: 5%; width: 80px; height: 22px;
     z-index: 200;
-    opacity: 0.76;
-    animation: pulsebolt 2.8s infinite ease-in, movezigzag 11s infinite linear;
+    opacity: 0.9;
+    animation: pulsebolt 4s ease-in-out infinite, movebolt 28s linear infinite;
     pointer-events: none;
   }
-  .zigzag2 {
-    top: 20px; left: 50%; width: 56px; height: 34px; opacity: 0.38;
-    animation: pulsebolt 3.2s -.8s infinite ease-in, movezigzag 13s -3s infinite linear;
-    filter: blur(1.5px);
+  .realbolt2 {
+    left: 40%; width: 72px; height: 22px; opacity: 0.5;
+    animation: pulsebolt 5s .9s infinite, movebolt 30s 7s infinite;
+    filter: blur(1.2px);
   }
-  .zigzag3 {
-    top: 40px; left: 70%; width: 40px; height:28px; opacity: 0.21;
-    animation: pulsebolt 2.1s -1s infinite ease-in, movezigzag 7s -4s infinite linear;
-    filter: blur(2px);
+  .realbolt3 {
+    left: 80%; width: 100px; height: 22px; opacity: 0.3;
+    animation: pulsebolt 4.5s -1.3s infinite, movebolt 34s 21s infinite;
+    filter: blur(2.1px);
   }
-  /* Unten auch Blitze */
-  .bar-bottom .zigzag { top: 8px; left: 60%; }
-  .bar-bottom .zigzag2 { top: 22px; left: 25%; }
-  .bar-bottom .zigzag3 { top: 35px; left: 85%; }
+  .bar-bottom .realbolt { top: 0; left: 65%; height: 34px; width: 110px; }
+  .bar-bottom .realbolt2 { top: 0; left: 20%; height: 34px; width: 80px;}
+  .bar-bottom .realbolt3 { top: 0; left: 82%; height: 34px; width: 60px;}
 
-  /* Animationen */
+  @keyframes pulsebolt {
+    0%,90%,100% { opacity: 0.7; filter: brightness(1.2) drop-shadow(0 0 6px #70d3ff);}
+    40% { opacity: 1; filter: brightness(3) drop-shadow(0 0 16px #fcfcff);}
+    70% { opacity: 0.5; filter: brightness(6.8) drop-shadow(0 0 24px #fff);}
+  }
+  @keyframes movebolt {
+    0% { left: 0%; }
+    100% { left: 92%; }
+  }
   @keyframes gradientShift {
     0% { background-position: 0% 50%; }
     100% { background-position: 100% 50%;}
   }
-  @keyframes pulsebolt {
-    0%,100% { filter: brightness(2) drop-shadow(0 0 10px #70c1ff); }
-    60% { filter: brightness(2.8) drop-shadow(0 0 19px #f6fafe); }
-    78% { filter: brightness(4.5) drop-shadow(0 0 32px #fff); }
-    85% { filter: brightness(2.5) drop-shadow(0 0 19px #aef4fa);}
-    92% { filter: brightness(7) drop-shadow(0 0 38px #fff); }
-  }
-  @keyframes movezigzag {
-    0% { left: 20%; }
-    100% { left: 95%; }
-  }
 </style>
 </head>
 <body>
-  <div class="bar-top bar">
+  <div class="bar-top">
     <div class="texture"></div>
-    <svg class="zigzag" viewBox="0 0 60 28"><polyline points="0,27 13,0 28,19 39,3 60,27" style="fill:none;stroke:#b7eaff;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;"/></svg>
-    <svg class="zigzag zigzag2" viewBox="0 0 40 22"><polyline points="0,20 6,2 13,16 24,5 40,20" style="fill:none;stroke:#d5ecff;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;"/></svg>
-    <svg class="zigzag zigzag3" viewBox="0 0 28 16"><polyline points="0,15 6,1 12,11 18,4 28,15" style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;"/></svg>
+    <svg class="realbolt" viewBox="0 0 80 22">
+      <polyline points="4,8 12,5 21,14 41,2 52,16 66,4 79,19" style="fill:none;stroke:#e7f8ff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;"/>
+    </svg>
+    <svg class="realbolt2" viewBox="0 0 72 22">
+      <polyline points="2,14 18,4 28,17 35,7 54,15 70,7" style="fill:none;stroke:#d6ebff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"/>
+    </svg>
+    <svg class="realbolt3" viewBox="0 0 100 22">
+      <polyline points="3,5 13,17 26,6 38,14 61,3 83,12 97,8" style="fill:none;stroke:#ffffff;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round;"/>
+    </svg>
   </div>
-  <div class="bar-bottom bar">
+  <div class="bar-bottom">
     <div class="texture"></div>
-    <svg class="zigzag" viewBox="0 0 60 28"><polyline points="0,27 13,0 28,19 39,3 60,27" style="fill:none;stroke:#b7eaff;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;"/></svg>
-    <svg class="zigzag zigzag2" viewBox="0 0 40 22"><polyline points="0,20 6,2 13,16 24,5 40,20" style="fill:none;stroke:#d5ecff;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;"/></svg>
-    <svg class="zigzag zigzag3" viewBox="0 0 28 16"><polyline points="0,15 6,1 12,11 18,4 28,15" style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;"/></svg>
+    <svg class="realbolt" viewBox="0 0 110 34">
+      <polyline points="5,10 22,7 37,24 57,5 82,27 104,10" style="fill:none;stroke:#e7f8ff;stroke-width:3.3;stroke-linecap:round;stroke-linejoin:round;"/>
+    </svg>
+    <svg class="realbolt2" viewBox="0 0 80 34">
+      <polyline points="6,16 16,8 29,23 42,17 61,32 77,12" style="fill:none;stroke:#d6ebff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;"/>
+    </svg>
+    <svg class="realbolt3" viewBox="0 0 60 34">
+      <polyline points="8,6 13,18 23,10 37,25 52,14 58,25" style="fill:none;stroke:#f8faff;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;"/>
+    </svg>
   </div>
   <div class="camera"></div>
   <div class="gameplay"></div>
