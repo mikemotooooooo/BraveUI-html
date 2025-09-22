@@ -1,70 +1,90 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Brave Styled Mobile Legends Overlay</title>
-  <style>
-    html, body {
-      margin: 0; padding: 0; overflow: hidden;
-      width: 100vw; height: 100vh;
-      background: transparent;
-      font-family: 'Arial', sans-serif;
-    }
-    /* Oben und unten animierte Balken */
-    .bar {
-      position: fixed;
-      left: 0; width: 100%; height: 120px;
-      background: linear-gradient(270deg, #FF2A2A, #FF5555, #FF2A2A);
-      background-size: 600% 600%;
-      border: 4px solid #FF2A2A;
-      box-sizing: border-box;
-      animation: pulse 6s ease infinite, gradientShift 15s ease infinite;
-      box-shadow: 0 0 20px #FF2A2A;
-      opacity: 0.95;
-      z-index: 9999;
-    }
-    .top-bar { top: 0; }
-    .bottom-bar { bottom: 0; }
-    
-    /* Transparenter Gameplay Bereich */
-    .gameplay {
-      position: fixed;
-      top: 120px; bottom: 120px;
-      left: 0; right: 0;
-      background: transparent;
-      z-index: 1;
-    }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Brave Animated Mobile Legends Overlay</title>
+<style>
+  html, body {
+    margin: 0; padding: 0; overflow: hidden;
+    width: 100vw; height: 100vh;
+    background: transparent;
+    font-family: Arial, sans-serif;
+  }
+  /* Oben und unten Balken mit Wasserfall und Blitz Effekten */
+  .bar {
+    position: fixed;
+    left: 0; width: 100%;
+    height: 96px;
+    box-sizing: border-box;
+    background: linear-gradient(270deg,
+      #0c1a3e, #1f3175, #082a67, #113a87, #083373, #0c1a3e);
+    background-size: 800% 800%;
+    border-top: 3px solid #0853b7;
+    border-bottom: 3px solid #071d50;
+    animation: gradientShift 30s ease infinite;
+    box-shadow: 0 0 40px rgba(13, 16, 37, 0.9);
+    z-index: 9999;
+    overflow: hidden;
+  }
+  .top-bar {
+    top: 0;
+  }
+  .bottom-bar {
+    bottom: 0;
+  }
+  /* Wasserfall-Blitz Overlay */
+  .bar::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -25%;
+    width: 25%; height: 100%;
+    background: linear-gradient(
+      120deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.3) 50%,
+      transparent 100%);
+    transform: skewX(-20deg);
+    animation: lightningMove 3s linear infinite;
+    filter: drop-shadow(0 0 5px #70c1ff);
+  }
 
-    /* Kamera-Box unten links */
-    .camera {
-      position: fixed;
-      bottom: 130px; left: 20px;
-      width: 320px; height: 180px;
-      border: 4px solid #FF2A2A;
-      box-shadow: 0 0 20px #FF2A2A;
-      background-color: rgba(26, 26, 26, 0.85);
-      border-radius: 8px;
-      z-index: 10000;
-    }
+  /* Mittlerer Gameplay Bereich transparent */
+  .gameplay {
+    position: fixed;
+    top: 96px; bottom: 96px;
+    left: 0; right: 0;
+    background: transparent;
+    z-index: 1;
+  }
 
-    /* Animationen */
-    @keyframes gradientShift {
-      0% { background-position: 0% 50% }
-      50% { background-position: 100% 50% }
-      100% { background-position: 0% 50% }
-    }
-    @keyframes pulse {
-      0%, 100% {
-        border-color: #FF2A2A;
-        box-shadow: 0 0 20px #FF2A2A;
-      }
-      50% {
-        border-color: #FF5555;
-        box-shadow: 0 0 40px #FF5555;
-      }
-    }
-  </style>
+  /* Vergrößerter Kamera-Platzhalter ca 20% Breite */
+  .camera {
+    position: fixed;
+    bottom: 110px;
+    left: 20px;
+    width: 640px;
+    height: 360px;
+    border: 4px solid #1f5fe2;
+    box-shadow: 0 0 40px #1f5fe2;
+    background-color: rgba(8, 41, 87, 0.8);
+    border-radius: 12px;
+    z-index: 10000;
+  }
+
+  /* Animationen */
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  @keyframes lightningMove {
+    0% { left: -25%; opacity: 0.2; }
+    45% { opacity: 1; }
+    55% { opacity: 1; }
+    100% { left: 125%; opacity: 0.2; }
+  }
+</style>
 </head>
 <body>
   <div class="bar top-bar"></div>
