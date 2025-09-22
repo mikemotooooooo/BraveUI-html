@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Mobile Legends Overlay - Wild Lightning Edition</title>
+<title>Pro Streamer Mobile Legends Overlay Final</title>
 <style>
   html, body {
     margin: 0; padding: 0; overflow: hidden;
@@ -11,6 +11,7 @@
     background: transparent;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
+  /* Balken mit Glow und Farbverlauf */
   .bar-top, .bar-bottom {
     position: fixed; left: 0; width: 100%;
     box-shadow: 0 0 40px rgba(0, 170, 255, 0.7);
@@ -55,51 +56,50 @@
     mix-blend-mode: screen;
     animation-timing-function: linear;
     opacity: 0.7;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
   }
-  /* Wild Lighting Top Balken */
   .bar-top .lightning1 {
     top: 12px; width: 280px; height: 70px; animation: moveLightning 18s linear infinite; left: -60%; opacity: 0.95; animation-delay: 0s;
-    background: url("https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif") no-repeat center/contain;
+    background-image: url("https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif");
   }
   .bar-top .lightning2 {
-    top: 30px; width: 230px; height: 60px; animation: moveLightning2 26s linear infinite; left: -50%; opacity: 0.55; animation-delay: 5s;
-    background: url("https://media.giphy.com/media/xUOwG0GRijQG9U3RNe/giphy.gif") no-repeat center/contain;
+    top: 30px; width: 230px; height: 60px; animation: moveLightning2 26s linear infinite; left: -50%; opacity: 0.5; animation-delay: 5s;
+    background-image: url("https://media.giphy.com/media/xUOwG0GRijQG9U3RNe/giphy.gif");
   }
   .bar-top .lightning3 {
     top: 8px; width: 230px; height: 55px; animation: moveLightning3 20s linear infinite; left: -70%; opacity: 0.7; animation-delay: 12s;
-    background: url("https://media.giphy.com/media/26ufl4wNHVOSZBHTW/giphy.gif") no-repeat center/contain;
+    background-image: url("https://media.giphy.com/media/26ufl4wNHVOSZBHTW/giphy.gif");
   }
   .bar-top .lightning4 {
     top: 36px; width: 240px; height: 70px; animation: moveLightning4 22s linear infinite; left: -30%; opacity: 0.6; animation-delay: 15s;
-    background: url("https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif") no-repeat center/contain;
+    background-image: url("https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif");
   }
-  /* Elon Musk Easter Egg Blaize*/
   .bar-top .lightning-elon {
     top: 18px; left: -80%; width: 280px; height: 72px; animation: moveLightningElon 45s linear infinite; opacity: 0.8; animation-delay: 22s;
-    background: url("https://media.giphy.com/media/26ufcFNcgEWResS5i/giphy.gif") no-repeat center/contain;
+    background-image: url("https://media.giphy.com/media/26ufcFNcgEWResS5i/giphy.gif");
   }
-  /* Unterer Balken */
   .bar-bottom .lightning1 {
     top: 20px; left: -50%; width: 320px; height: 80px; animation-duration: 25s;
-    background: url("https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif") no-repeat center/contain;
+    background-image: url("https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif");
   }
   .bar-bottom .lightning2 {
     top: 40px; left: -60%; width: 270px; height: 66px; animation-duration: 18s; opacity: 0.55;
-    background: url("https://media.giphy.com/media/xUOwG0GRijQG9U3RNe/giphy.gif") no-repeat center/contain;
+    background-image: url("https://media.giphy.com/media/xUOwG0GRijQG9U3RNe/giphy.gif");
   }
   .bar-bottom .lightning3 {
     top: 25px; left: -55%; width: 250px; height: 77px; animation-duration: 20s;
-    background: url("https://media.giphy.com/media/26ufl4wNHVOSZBHTW/giphy.gif") no-repeat center/contain;
+    background-image: url("https://media.giphy.com/media/26ufl4wNHVOSZBHTW/giphy.gif");
   }
   .bar-bottom .lightning4 {
     top: 55px; left: -40%; width: 270px; height: 67px; animation-duration: 21s; opacity: 0.7;
-    background: url("https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif") no-repeat center/contain;
+    background-image: url("https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif");
   }
   .bar-bottom .lightning-elon {
     bottom: 50px; left: -65%; width: 280px; height: 75px; opacity: 0.9; animation-duration: 48s;
-    background: url("https://media.giphy.com/media/26ufcFNcgEWResS5i/giphy.gif") no-repeat center/contain;
+    background-image: url("https://media.giphy.com/media/26ufcFNcgEWResS5i/giphy.gif");
   }
-  /* Feuer GIF */
   .fire-gif {
     position: absolute;
     top: 35px;
@@ -111,7 +111,10 @@
     opacity: 0.8;
     animation: movefire 12s linear infinite;
     mix-blend-mode: lighten;
-    background: url("https://media.giphy.com/media/26ufl4wNHVOSZBHTW/giphy.gif") no-repeat center/contain;
+    background-image: url("https://media.giphy.com/media/26ufl4wNHVOSZBHTW/giphy.gif");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
   }
   .bar-bottom .fire-gif {
     top: 32px;
@@ -132,7 +135,6 @@
       opacity: 0.7;
     }
   }
-  /* Wasserfall Übergang */
   .waterfall-top,
   .waterfall-bottom {
     position: fixed;
@@ -171,7 +173,6 @@
       background-position-y: 0px;
     }
   }
-  /* Blitz Animationen */
   @keyframes moveLightning {
     0% {
       left: -60%;
@@ -259,8 +260,7 @@
     }
   }
   @keyframes pulsate {
-    0%,
-    100% {
+    0%, 100% {
       box-shadow: 0 0 30px #2c82ff, inset 0 0 40px #026cee;
     }
     50% {
