@@ -1,0 +1,35 @@
+html, body {
+  margin: 0; padding: 0; overflow: hidden; background: transparent;
+  width: 1920px; height: 1080px; font-family: Arial, sans-serif;
+}
+.bar-top, .bar-bottom {
+  position: fixed; width: 100%; left: 0; overflow: visible; z-index: 100;
+  background: linear-gradient(270deg, #0c1a4a, #0c3ca8, #0057ff, #0c3ca8, #0c1a4a);
+  box-shadow: 0 0 40px rgba(0, 170, 255, 0.7);
+}
+.bar-top {
+  top: 0; height: 76px; border-bottom: 6px solid #0a55e2;
+}
+.bar-bottom {
+  bottom: 0; height: 89px; border-top: 6px solid #0a61df;
+  background: linear-gradient(270deg, #001544, #003bbd, #007aff, #003bbd, #001544);
+  animation: pulsate 8s ease-in-out infinite reverse;
+}
+@keyframes pulsate {
+  0%, 100% {
+    box-shadow: 0 0 30px #2c82ff, inset 0 0 40px #026cee;
+  }
+  50% {
+    box-shadow: 0 0 60px #44a2ff, inset 0 0 60px #0283ff;
+  }
+}
+.meme {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform, opacity;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.8;
+  mix-blend-mode: screen;
+}
