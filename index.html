@@ -3,146 +3,166 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Brave Mobile Legends Overlay mit wildem Blitzchaos</title>
+<title>Pro Streamer Mobile Legends Overlay</title>
 <style>
   html, body {
     margin: 0; padding: 0; overflow: hidden;
     width: 100vw; height: 100vh;
     background: transparent;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
-  /* Balken */
+
+  /* Balken mit starkem Glow und Farbverlauf */
   .bar-top, .bar-bottom {
     position: fixed; left: 0; width: 100%;
-    background: linear-gradient(266deg, #071d50 0%, #00b0ff 60%, #071d50 100%);
-    overflow: visible; z-index: 100;
-    box-shadow: 0 2px 40px #00f6ff30;
+    box-shadow: 0 0 40px rgba(0, 170, 255, 0.7);
+    border: none;
+    overflow: visible;
+    z-index: 100;
   }
   .bar-top {
-    top: 0; height: 76px;
-    border-bottom: 3px solid #20e3ad;
+    top: 0; height: 80px;
+    background: linear-gradient(270deg, #0c1a4a, #0c3ca8, #0057ff, #0c3ca8, #0c1a4a);
+    border-bottom: 6px solid #0a55e2;
+    animation: pulsate 8s ease-in-out infinite;
   }
   .bar-bottom {
-    bottom: 0; height: 89px;
-    border-top: 3px solid #20e3ad;
-    background: linear-gradient(270deg,#014080 0%, #1ae8e8 60%, #012040 100%);
+    bottom: 0; height: 90px;
+    background: linear-gradient(270deg, #001544, #003bbd, #007aff, #003bbd, #001544);
+    border-top: 6px solid #0a61df;
+    animation: pulsate 8s ease-in-out infinite reverse;
   }
+  /* Leichte Textur für Tiefe */
   .texture {
-    position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     background-image:
-      linear-gradient(45deg, rgba(255,255,255,0.10) 1px, transparent 4px),
-      linear-gradient(-45deg, rgba(255,255,255,0.07) 1px, transparent 4px);
-    background-size: 64px 64px, 24px 24px;
-    pointer-events: none; z-index: 104;
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 1px, transparent 8px),
+      repeating-linear-gradient(-45deg, rgba(255,255,255,0.04) 1px, transparent 6px);
+    pointer-events: none;
+    z-index: 101;
   }
+
+  /* Kamera stilvoll sichtbar */
   .camera {
-    position: fixed; bottom: 106px; left: 36px;
-    width: 310px; height: 180px;
-    border: 3px solid #29a0fd; box-shadow: 0 0 18px #1f5fe2;
-    background: transparent; border-radius: 12px; z-index: 200;
+    position: fixed;
+    bottom: 110px;
+    left: 30px;
+    width: 320px;
+    height: 180px;
+    border: 5px solid #21a1f1;
+    box-shadow: 0 0 30px #1390f3;
+    border-radius: 16px;
+    background-color: transparent;
+    z-index: 200;
   }
+
+  /* Blitze animiert per keyframes */
   .lightning-gif {
     position: absolute;
     pointer-events: none;
     mix-blend-mode: screen;
     animation-timing-function: linear;
-    opacity: 0.7;
+  }
+  .lightning-top1 {
+    top: 12px; width: 280px; height: 70px; animation: moveLightning 18s linear infinite;
+    left: -60%; opacity: 0.95;
+    animation-delay: 0s;
+  }
+  .lightning-top2 {
+    top: 30px; width: 230px; height: 60px; animation: moveLightning2 26s linear infinite;
+    left: -50%; opacity: 0.5;
+    animation-delay: 5s;
+  }
+  .lightning-top3 {
+    top: 8px; width: 230px; height: 55px; animation: moveLightning3 20s linear infinite;
+    left: -70%; opacity: 0.7;
+    animation-delay: 12s;
+  }
+  .lightning-top4 {
+    top: 36px; width: 240px; height: 70px; animation: moveLightning4 22s linear infinite;
+    left: -30%; opacity: 0.6;
+    animation-delay: 15s;
+  }
+  /* Selten auftauchender "Elon Musk" Blitz */
+  .lightning-elon {
+    top: 18px; left: -80%; width: 280px; height: 72px;
+    animation: moveLightningElon 45s linear infinite;
+    opacity: 0.8;
+    animation-delay: 22s;
   }
 
-  /* Blitze in unterschiedlichen Animationen, Breiten, Höhen */
-  /* Oberer Balken */
-  .bar-top .lightning1 {
-    top: 10px; width: 220px; height: 52px; animation: moveLightning 20s linear infinite;
-    left: -40%; animation-delay: 0s;
-  }
-  .bar-top .lightning2 {
-    top: 25px; width: 180px; height: 48px; animation: moveLightning2 28s linear infinite; opacity: 0.55;
-    left: -50%; animation-delay: 5s;
-  }
-  .bar-top .lightning3 {
-    top: 7px; width: 230px; height: 50px; animation: moveLightning3 15s linear infinite; opacity: 0.65;
-    left: -55%; animation-delay: 8s;
-  }
-  .bar-top .lightning4 {
-    top: 28px; width: 190px; height: 55px; animation: moveLightning4 30s linear infinite; opacity: 0.5;
-    left: -30%; animation-delay: 11s;
-  }
-  .bar-top .lightning-elon {
-    top: 15px; width: 260px; height: 65px; animation: moveLightningElon 45s linear infinite; opacity: 0.8;
-    left: -70%; animation-delay: 20s;
-  }
+  /* Unten */
+  .bar-bottom .lightning-top1 { top: 20px; left: -50%; width: 320px; height: 80px; animation-duration: 25s;}
+  .bar-bottom .lightning-top2 { top: 40px; left: -60%; width: 270px; height: 66px; opacity: 0.55; animation-duration: 18s;}
+  .bar-bottom .lightning-top3 { top: 25px; left: -55%; width: 250px; height: 77px; animation-duration: 20s;}
+  .bar-bottom .lightning-top4 { top: 55px; left: -40%; width: 270px; height: 67px; opacity: 0.7; animation-duration: 21s;}
+  .bar-bottom .lightning-elon { bottom: 50px; left: -65%; width: 280px; height: 75px; opacity: 0.9; animation-duration: 48s;}
 
-  /* Unterer Balken */
-  .bar-bottom .lightning1 {
-    top: 14px; width: 240px; height: 78px; animation: moveLightning 17s linear infinite;
-    left: -50%; animation-delay: 0s;
+  /* Wassereffekt als Übergang */
+  .waterfall-top, .waterfall-bottom {
+    position: fixed; left: 0; width: 100%; height: 75px; pointer-events: none; opacity: 0.6;
+    background: url('https://i.imgur.com/RnF2v8W.png') repeat-x; /* wasserfall-, tropfenartige transparente PNG-Sequenz */
+    animation: waterfallAnim 5s linear infinite;
+    filter: drop-shadow(0 0 10px #1ab0ff);
+    z-index: 110;
   }
-  .bar-bottom .lightning2 {
-    top: 28px; width: 220px; height: 70px; animation: moveLightning2 18s linear infinite; opacity: 0.65;
-    left: -70%; animation-delay: 6s;
-  }
-  .bar-bottom .lightning3 {
-    top: 18px; width: 250px; height: 80px; animation: moveLightning3 22s linear infinite; opacity: 0.45;
-    left: -55%; animation-delay: 9s;
-  }
-  .bar-bottom .lightning4 {
-    top: 35px; width: 230px; height: 70px; animation: moveLightning4 26s linear infinite; opacity: 0.5;
-    left: -40%; animation-delay: 12s;
-  }
-  .bar-bottom .lightning-elon {
-    top: 40px; width: 280px; height: 78px; animation: moveLightningElon 50s linear infinite; opacity: 0.75;
-    left: -65%; animation-delay: 30s;
-  }
+  .waterfall-top { top: 80px; }
+  .waterfall-bottom { bottom: 89px; }
 
-  /* Animation Keyframes */
+  /* Animations für Blitze */
   @keyframes moveLightning {
-    0% { left: -50%; opacity: 0; }
-    25% { opacity: 1; }
-    70% { left: 90%; opacity: 1; }
-    100% { left: 120%; opacity: 0; }
+    0% { left: -60%; opacity: 0.5; }
+    40% { left: 80%; opacity: 1; }
+    100% { left: 140%; opacity: 0.5; }
   }
   @keyframes moveLightning2 {
-    0% { left: 100%; opacity: 0; }
+    0% { left: 90%; opacity: 0; }
     10% { opacity: 1; }
-    35% { left: 50%; opacity: 1; }
-    65% { left: 30%; opacity: 1; }
+    50% { left: 45%; opacity: 1; }
+    85% { left: 28%; opacity: 0.9; }
     100% { left: -70%; opacity: 0; }
   }
   @keyframes moveLightning3 {
-    0% { left: -30%; opacity: 0; }
-    40% { opacity: 1; }
-    65% { left: 90%; opacity: 1; }
-    100% { left: 140%; opacity: 0; }
+    0% { left: -40%; opacity: 0; }
+    35% { opacity: 1; }
+    60% { left: 83%; opacity: 1; }
+    100% { left: 130%; opacity: 0; }
   }
   @keyframes moveLightning4 {
-    0% { left: -35%; opacity: 0; }
+    0% { left: -30%; opacity: 0; }
     30% { opacity: 1; }
-    70% { left: 85%; opacity: 1; }
-    100% { left: 130%; opacity: 0; }
+    60% { left: 75%; opacity: 1; }
+    100% { left: 125%; opacity: 0; }
   }
   @keyframes moveLightningElon {
-    0% { left: -70%; opacity: 0; }
-    30% { opacity: 1; }
-    60% { left: 100%; opacity: 1; }
-    100% { left: 130%; opacity: 0; }
+    0% { left: -80%; opacity: 0; }
+    10% { opacity: 0.9; }
+    40% { left: 110%; opacity: 0.8; }
+    100% { left: 140%; opacity: 0; }
+  }
+  @keyframes pulsate {
+    0%, 100% { box-shadow: 0 0 30px #2c82ff, inset 0 0 40px #026cee; }
+    50% { box-shadow: 0 0 60px #44a2ff, inset 0 0 60px #0283ff; }
   }
 </style>
 </head>
 <body>
   <div class="bar-top">
     <div class="texture"></div>
-    <img class="lightning-gif lightning1" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3c3FhcXNhd2MwdGFpdXM0NHoyNDljaHltejYya21oMTZrM2sxNXdyZyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/ihF0UJtgMc0jxabcgo/giphy.gif" alt="Blitz 1" />
-    <img class="lightning-gif lightning2" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3c3FhcXNhd2MwdGFpdXM0NHoyNDljaHltejYya21oMTZrM2sxNXdyZyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/5CwwETWQQQcTBif6QX/giphy.gif" alt="Blitz 2" />
-    <img class="lightning-gif lightning3" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjRrOWM1Zm43dTYwMXhzbnF4Z2U2MnJpaTVsdXlvanE5NHlhbGE2diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/XDWjc16RrzaomL5aR4/giphy.gif" alt="Blitz 3" />
-    <img class="lightning-gif lightning4" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3c2NlNmZvZXF5NHk2b290bW1qang3NW92NnFzcWdmdnhycWQ0bno1NiZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/26ufcFNcgEWResS5i/giphy.gif" alt="Blitz 4" />
+    <img class="lightning-gif lightning-top1" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3c3FhcXNhd2MwdGFpdXM0NHoyNDljaHltejYya21oMTZrM2sxNXdyZyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/ihF0UJtgMc0jxabcgo/giphy.gif" alt="Blitz 1" />
+    <img class="lightning-gif lightning-top2" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3c3FhcXNhd2MwdGFpdXM0NHoyNDljaHltejYya21oMTZrM2sxNXdyZyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/5CwwETWQQQcTBif6QX/giphy.gif" alt="Blitz 2" />
+    <img class="lightning-gif lightning-top3" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjRrOWM1Zm43dTYwMXhzbnF4Z2U2MnJpaTVsdXlvanE5NHlhbGE2diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/XDWjc16RrzaomL5aR4/giphy.gif" alt="Blitz 3" />
+    <img class="lightning-gif lightning-top4" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3c2NlNmZvZXF5NHk2b290bW1qang3NW92NnFzcWdmdnhycWQ0bno1NiZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/26ufcFNcgEWResS5i/giphy.gif" alt="Blitz 4" />
     <img class="lightning-gif lightning-elon" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3c2NlNmZvZXF5NHk2b290bW1qang3NW92NnFzcWdmdnhycWQ0bno1NiZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/26ufcFNcgEWResS5i/giphy.gif" alt="Elon Musk Blitz" />
   </div>
+  <div class="waterfall-top"></div>
+  <div class="waterfall-bottom"></div>
   <div class="bar-bottom">
     <div class="texture"></div>
-    <img class="lightning-gif lightning1" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3c3FhcXNhd2MwdGFpdXM0NHoyNDljaHltejYya21oMTZrM2sxNXdyZyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/ihF0UJtgMc0jxabcgo/giphy.gif" alt="Blitz 1" />
-    <img class="lightning-gif lightning2" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3c3FhcXNhd2MwdGFpdXM0NHoyNDljaHltejYya21oMTZrM2sxNXdyZyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/5CwwETWQQQcTBif6QX/giphy.gif" alt="Blitz 2" />
-    <img class="lightning-gif lightning3" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjRrOWM1Zm43dTYwMXhzbnF4Z2U2MnJpaTVsdXlvanE5NHlhbGE2diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/XDWjc16RrzaomL5aR4/giphy.gif" alt="Blitz 3" />
-    <img class="lightning-gif lightning4" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3c2NlNmZvZXF5NHk2b290bW1qang3NW92NnFzcWdmdnhycWQ0bno1NiZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/26ufcFNcgEWResS5i/giphy.gif" alt="Blitz 4" />
+    <img class="lightning-gif lightning-bottom-1" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3c3FhcXNhd2MwdGFpdXM0NHoyNDljaHltejYya21oMTZrM2sxNXdyZyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/ihF0UJtgMc0jxabcgo/giphy.gif" alt="Blitz 1" />
+    <img class="lightning-gif lightning-bottom-2" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3c3FhcXNhd2MwdGFpdXM0NHoyNDljaHltejYya21oMTZrM2sxNXdyZyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/5CwwETWQQQcTBif6QX/giphy.gif" alt="Blitz 2" />
+    <img class="lightning-gif lightning-bottom-3" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjRrOWM1Zm43dTYwMXhzbnF4Z2U2MnJpaTVsdXlvanE5NHlhbGE2diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/XDWjc16RrzaomL5aR4/giphy.gif" alt="Blitz 3" />
+    <img class="lightning-gif lightning-bottom-4" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3c2NlNmZvZXF5NHk2b290bW1qang3NW92NnFzcWdmdnhycWQ0bno1NiZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/26ufcFNcgEWResS5i/giphy.gif" alt="Blitz 4" />
     <img class="lightning-gif lightning-elon" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3c2NlNmZvZXF5NHk2b290bW1qang3NW92NnFzcWdmdnhycWQ0bno1NiZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/26ufcFNcgEWResS5i/giphy.gif" alt="Elon Musk Blitz" />
   </div>
   <div class="camera"></div>
