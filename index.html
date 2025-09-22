@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Brave Enhanced Mobile Legends Overlay</title>
+<title>Brave Finales Mobile Legends Overlay</title>
 <style>
   html, body {
     margin: 0; padding: 0; overflow: hidden;
@@ -11,125 +11,115 @@
     background: transparent;
     font-family: Arial, sans-serif;
   }
-  /* Balken mit Textur und Farbverlauf */
-  .bar {
+  /* Oberer Balken (kleiner) */
+  .bar-top {
     position: fixed;
-    left: 0; width: 100%;
-    height: 96px;
-    box-sizing: border-box;
-    background: linear-gradient(270deg,
-      #0c1a3e, #1f3175, #082a67, #113a87, #083373, #0c1a3e);
+    left: 0; top: 0; width: 100%;
+    height: 60px; /* passt dem Screenshot an */
+    background: linear-gradient(270deg, #0c1a3e 0%, #1f3175 50%, #0c1a3e 100%);
     background-size: 900% 900%;
-    border-top: 3px solid #0853b7;
-    border-bottom: 3px solid #071d50;
-    animation: gradientShift 60s ease infinite;
-    box-shadow: 0 0 50px rgba(13, 16, 37, 0.9);
-    z-index: 9999;
-    overflow: hidden;
+    border-bottom: 4px solid #2196f3;
+    box-shadow: 0 0 32px #0e226e inset, 0 2px 16px #016cd2;
+    z-index: 100;
+    animation: gradientShift 50s linear infinite;
+    overflow: visible;
   }
-  .top-bar { top: 0; }
-  .bottom-bar { bottom: 0; }
 
-  /* Zusätzliche feine Textur über Balken */
+  /* Unterer Balken (größer, für dickeren Letterbox) */
+  .bar-bottom {
+    position: fixed;
+    left: 0; bottom: 0; width: 100%;
+    height: 120px; /* passt deinem Screenshot an */
+    background: linear-gradient(90deg, #071d50 0%, #113a87 60%, #083373 100%);
+    background-size: 800% 800%;
+    border-top: 4px solid #1563c7;
+    box-shadow: 0 0 32px #13215c inset, 0 -2px 16px #016cb2;
+    z-index: 100;
+    animation: gradientShift 70s linear infinite reverse;
+    overflow: visible;
+  }
+
+  /* Zusätzliche Linien/Struktur-Textur für mehr plastischen Look */
   .texture {
-    position: absolute;
-    top: 0; left: 0;
+    position: absolute; left: 0; top: 0;
     width: 100%; height: 100%;
     background-image:
-      repeating-linear-gradient(45deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02) 2px, transparent 2px, transparent 4px),
-      repeating-linear-gradient(-45deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02) 2px, transparent 2px, transparent 4px);
+      linear-gradient(0deg, rgba(160,196,255,0.09) 1px, transparent 1px, transparent 12px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 16px);
+    background-size: 100% 12px, 16px 100%;
     pointer-events: none;
-    z-index: 9980;
+    z-index: 105;
   }
 
-  /* Blitz-Schlagsimulation */
-  .lightning {
-    position: absolute;
-    top: 0; width: 10%; height: 100%;
-    background: linear-gradient(
-      120deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.6) 40%,
-      rgba(255, 255, 255, 0.9) 50%,
-      rgba(255, 255, 255, 0.6) 60%,
-      transparent 100%);
-    transform: skewX(-20deg);
-    filter: drop-shadow(0 0 8px #70c1ff);
-    opacity: 0;
-    animation: lightningStrike 20s linear infinite;
-  }
-
-  /* Mehrere Blitze mit unterschiedlichen Verzögerungen */
-  .lightning:nth-child(1) {
-    left: -15%;
-    animation-delay: 0s;
-  }
-  .lightning:nth-child(2) {
-    left: -40%;
-    animation-delay: 6.5s;
-    width: 8%;
-    opacity: 0.3;
-    filter: drop-shadow(0 0 4px #70b8ff);
-  }
-  .lightning:nth-child(3) {
-    left: -70%;
-    animation-delay: 13s;
-    width: 12%;
-    opacity: 0.15;
-    filter: drop-shadow(0 0 6px #709bff);
-  }
-
-  /* Transparenter Gameplay Bereich */
-  .gameplay {
-    position: fixed;
-    top: 96px; bottom: 96px;
-    left: 0; right: 0;
-    background: transparent;
-    z-index: 1;
-  }
-
-  /* Kamera-Bereich 10% kleiner, transparent innen */
+  /* Kamera sichtbar unten links */
   .camera {
     position: fixed;
-    bottom: 110px;
-    left: 20px;
-    width: 576px;  /* ca. 10% kleiner */
-    height: 324px; /* ca. 10% kleiner */
-    border: 4px solid #1f5fe2;
-    box-shadow: 0 0 40px #1f5fe2;
-    background-color: transparent; /* komplett durchsichtig innen */
-    border-radius: 12px;
-    z-index: 10000;
+    bottom: 140px;
+    left: 36px;
+    width: 320px; /* kleiner */
+    height: 180px;
+    border: 4px solid #29a0fd;
+    box-shadow: 0 0 28px #1f5fe2;
+    background-color: transparent; /* echt durchsichtig */
+    border-radius: 14px;
+    z-index: 200;
   }
+
+  /* Zacken-Blitz SVG (sichtbar als strahlender Licht-Bolt) */
+  .zigzag {
+    position: absolute; top: 8px; left: 20%; width: 70px; height: 44px;
+    z-index: 200;
+    opacity: 0.76;
+    animation: pulsebolt 2.8s infinite ease-in, movezigzag 11s infinite linear;
+    pointer-events: none;
+  }
+  .zigzag2 {
+    top: 20px; left: 50%; width: 56px; height: 34px; opacity: 0.38;
+    animation: pulsebolt 3.2s -.8s infinite ease-in, movezigzag 13s -3s infinite linear;
+    filter: blur(1.5px);
+  }
+  .zigzag3 {
+    top: 40px; left: 70%; width: 40px; height:28px; opacity: 0.21;
+    animation: pulsebolt 2.1s -1s infinite ease-in, movezigzag 7s -4s infinite linear;
+    filter: blur(2px);
+  }
+  /* Unten auch Blitze */
+  .bar-bottom .zigzag { top: 38px; left: 60%; }
+  .bar-bottom .zigzag2 { top: 60px; left: 25%; }
+  .bar-bottom .zigzag3 { top: 80px; left: 85%; }
 
   /* Animationen */
   @keyframes gradientShift {
     0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%;}
   }
-
-  @keyframes lightningStrike {
-    0%, 15%, 85%, 100% {
-      opacity: 0;
-      left: -20%;
-    }
-    20%, 30% {
-      opacity: 1;
-      left: 120%;
-    }
-    80% {
-      opacity: 1;
-      left: 110%;
-    }
+  @keyframes pulsebolt {
+    0%,100% { filter: brightness(2) drop-shadow(0 0 10px #70c1ff); }
+    60% { filter: brightness(2.8) drop-shadow(0 0 19px #f6fafe); }
+    78% { filter: brightness(4.5) drop-shadow(0 0 32px #fff); }
+    85% { filter: brightness(2.5) drop-shadow(0 0 19px #aef4fa);}
+    92% { filter: brightness(7) drop-shadow(0 0 38px #fff); }
+  }
+  @keyframes movezigzag {
+    0% { left: 20%; }
+    100% { left: 95%; }
   }
 </style>
 </head>
 <body>
-  <div class="bar top-bar">
+  <div class="bar-top bar">
     <div class="texture"></div>
-    <div class="lightning"></div>
-    <div class="lightning"></div>
-    <div class="lightning"></div>
+    <svg class="zigzag" viewBox="0 0 60 28"><polyline points="0,27 13,0 28,19 39,3 60,27" style="fill:none;stroke:#b7eaff;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;"/></svg>
+    <svg class="zigzag zigzag2" viewBox="0 0 40 22"><polyline points="0,20 6,2 13,16 24,5 40,20" style="fill:none;stroke:#d5ecff;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;"/></svg>
+    <svg class="zigzag zigzag3" viewBox="0 0 28 16"><polyline points="0,15 6,1 12,11 18,4 28,15" style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;"/></svg>
   </div>
-  <div class="bar bottom
+  <div class="bar-bottom bar">
+    <div class="texture"></div>
+    <svg class="zigzag" viewBox="0 0 60 28"><polyline points="0,27 13,0 28,19 39,3 60,27" style="fill:none;stroke:#b7eaff;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;"/></svg>
+    <svg class="zigzag zigzag2" viewBox="0 0 40 22"><polyline points="0,20 6,2 13,16 24,5 40,20" style="fill:none;stroke:#d5ecff;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;"/></svg>
+    <svg class="zigzag zigzag3" viewBox="0 0 28 16"><polyline points="0,15 6,1 12,11 18,4 28,15" style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;"/></svg>
+  </div>
+  <div class="camera"></div>
+  <div class="gameplay"></div>
+</body>
+</html>
