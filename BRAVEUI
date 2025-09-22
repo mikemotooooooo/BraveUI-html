@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Brave Style Mobile Legends Overlay</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 1920px;
+    height: 1080px;
+    font-family: 'Brave', Arial, sans-serif;
+    background-color: transparent;
+  }
+
+  /* Obere und untere Balken, pulsierend mit Farbverlauf */
+  .bar {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(270deg, #FF2A2A, #FF5555, #FF2A2A);
+    background-size: 600% 600%;
+    border: 4px solid #FF2A2A;
+    box-sizing: border-box;
+    animation: pulse 6s ease infinite, gradientShift 15s ease infinite;
+    box-shadow: 0 0 20px #FF2A2A;
+    opacity: 0.95;
+    z-index: 10;
+  }
+  .top-bar {
+    top: 0;
+  }
+  .bottom-bar {
+    bottom: 0;
+  }
+
+  /* Mittleres transparenter Bereich für Gameplay */
+  .gameplay {
+    position: absolute;
+    top: 120px;
+    bottom: 120px;
+    left: 0;
+    right: 0;
+    background-color: transparent;
+    z-index: 1;
+  }
+
+  /* Kamera Bereich unten links */
+  .camera {
+    position: absolute;
+    bottom: 130px;
+    left: 20px;
+    width: 320px;
+    height: 180px;
+    border: 4px solid #FF2A2A;
+    box-shadow: 0 0 20px #FF2A2A;
+    background-color: rgba(26, 26, 26, 0.85);
+    z-index: 15;
+    border-radius: 8px;
+  }
+
+  /* Platzhalter für Username & Socials unten im Balken (noch leer) */
+  .info-bar {
+    position: absolute;
+    bottom: 0;
+    left: 360px;
+    height: 120px;
+    width: calc(100% - 360px);
+    background-color: rgba(26, 26, 26, 0.75);
+    border-top: 2px solid #FF2A2A;
+    color: #FF2A2A;
+    font-size: 22px;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 14;
+    border-radius: 8px 0 0 0;
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50% }
+    50% { background-position: 100% 50% }
+    100% { background-position: 0% 50% }
+  }
+
+  @keyframes pulse {
+    0%, 10
