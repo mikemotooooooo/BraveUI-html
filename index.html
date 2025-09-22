@@ -1,28 +1,231 @@
-<div class="bar-top">
-  <div class="texture"></div>
-  <!-- 25 Blitze oben -->
-  <img class="lightning lightning1" src="https://media.giphy.com/media/xT0GqssRweIhlz209i/giphy.gif" />
-  <img class="lightning lightning2" src="https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif" />
-  <img class="lightning lightning3" src="https://media.giphy.com/media/f9kQDHV2hSdHqys9iB/giphy.gif" />
-  <img class="lightning lightning4" src="https://media.giphy.com/media/l378rkAiPzzRXi0tS/giphy.gif" />
-  <img class="lightning lightning5" src="https://media.giphy.com/media/3o7aTskHEUdgCQAXde/giphy.gif" />
-  <img class="lightning lightning6" src="https://media.giphy.com/media/xUOwG0GRijQG9U3RNe/giphy.gif" />
-  <img class="lightning lightning7" src="https://media.giphy.com/media/26ufl4wNHVOSZBHTW/giphy.gif" />
-  <img class="lightning lightning8" src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" />
-  <img class="lightning lightning9" src="https://media.giphy.com/media/WLZzJMwGEHT32/giphy.gif" />
-  <!-- Rest der 25 Blitze (auch mehrfach nutzbar) -->
-</div>
-<div class="bar-bottom">
-  <div class="texture"></div>
-  <!-- 25 Blitze unten -->
-  <img class="lightning lightning1" src="https://media.giphy.com/media/xT0GqssRweIhlz209i/giphy.gif" />
-  <img class="lightning lightning2" src="https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif" />
-  <img class="lightning lightning3" src="https://media.giphy.com/media/f9kQDHV2hSdHqys9iB/giphy.gif" />
-  <img class="lightning lightning4" src="https://media.giphy.com/media/l378rkAiPzzRXi0tS/giphy.gif" />
-  <img class="lightning lightning5" src="https://media.giphy.com/media/3o7aTskHEUdgCQAXde/giphy.gif" />
-  <img class="lightning lightning6" src="https://media.giphy.com/media/xUOwG0GRijQG9U3RNe/giphy.gif" />
-  <img class="lightning lightning7" src="https://media.giphy.com/media/26ufl4wNHVOSZBHTW/giphy.gif" />
-  <img class="lightning lightning8" src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" />
-  <img class="lightning lightning9" src="https://media.giphy.com/media/WLZzJMwGEHT32/giphy.gif" />
-  <!-- Rest der 25 Blitze unten -->
-</div>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mega Meme Overlay deluxe komplett</title>
+<style>
+  html, body {
+    margin:0; padding:0; overflow:hidden; background: transparent;
+    width: 1920px; height:1080px; font-family: Arial, sans-serif;
+  }
+  .bar-top, .bar-bottom {
+    position: fixed; width: 100%; left: 0; overflow: visible; z-index: 100;
+    background: linear-gradient(270deg, #0c1a4a, #0c3ca8, #0057ff, #0c3ca8, #0c1a4a);
+    box-shadow: 0 0 40px rgba(0,170,255,0.7);
+  }
+  .bar-top {
+    top:0; height: 76px; border-bottom: 6px solid #0a55e2;
+  }
+  .bar-bottom {
+    bottom:0; height: 89px; border-top: 6px solid #0a61df;
+    background: linear-gradient(270deg, #001544, #003bbd, #007aff, #003bbd, #001544);
+    animation: pulsate 8s ease-in-out infinite reverse;
+  }
+  @keyframes pulsate {
+    0%,100% {
+      box-shadow: 0 0 30px #2c82ff, inset 0 0 40px #026cee;
+    }
+    50% {
+      box-shadow: 0 0 60px #44a2ff, inset 0 0 60px #0283ff;
+    }
+  }
+  .meme {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    will-change: transform, opacity;
+    mix-blend-mode: screen;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.8;
+    animation-timing-function: linear;
+  }
+</style>
+</head>
+<body>
+  <div class="bar-top"></div>
+  <div class="bar-bottom"></div>
+
+<script>
+  const barTop = document.querySelector('.bar-top');
+  const barBottom = document.querySelector('.bar-bottom');
+
+  // Liste von 50 stabilen Meme GIF URLs (10 hier, bitte erweitern)
+  const memeGifs = [
+    "https://media.giphy.com/media/xT0GqssRweIhlz209i/giphy.gif",
+    "https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif",
+    "https://media.giphy.com/media/f9kQDHV2hSdHqys9iB/giphy.gif",
+    "https://media.giphy.com/media/l378rkAiPzzRXi0tS/giphy.gif",
+    "https://media.giphy.com/media/3o7aTskHEUdgCQAXde/giphy.gif",
+    "https://media.giphy.com/media/xUOwG0GRijQG9U3RNe/giphy.gif",
+    "https://media.giphy.com/media/26ufl4wNHVOSZBHTW/giphy.gif",
+    "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif",
+    "https://media.giphy.com/media/WLZzJMwGEHT32/giphy.gif",
+    "https://media.giphy.com/media/3o6Zt7x6nUHPSUMkgQ/giphy.gif"
+  "https://media.giphy.com/media/xT0GqssRweIhlz209i/giphy.gif",
+  "https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif",
+  "https://media.giphy.com/media/f9kQDHV2hSdHqys9iB/giphy.gif",
+  "https://media.giphy.com/media/l378rkAiPzzRXi0tS/giphy.gif",
+  "https://media.giphy.com/media/3o7aTskHEUdgCQAXde/giphy.gif",
+  "https://media.giphy.com/media/xUOwG0GRijQG9U3RNe/giphy.gif",
+  "https://media.giphy.com/media/26ufl4wNHVOSZBHTW/giphy.gif",
+  "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif",
+  "https://media.giphy.com/media/WLZzJMwGEHT32/giphy.gif",
+  "https://media.giphy.com/media/3o6Zt7x6nUHPSUMkgQ/giphy.gif",
+  "https://media.giphy.com/media/l0MYGz4cgKXs0txKk/giphy.gif",
+  "https://media.giphy.com/media/26xBwdIuRJiAiSwNe/giphy.gif",
+  "https://media.giphy.com/media/3ohc20ByDNHAb8GwoY/giphy.gif",
+  "https://media.giphy.com/media/l2Sqc3POpzkjTDOYI/giphy.gif",
+  "https://media.giphy.com/media/3o6ZtmtiCRdbbeBNwI/giphy.gif",
+  "https://media.giphy.com/media/l2JhLFGVjonxWxm24/giphy.gif",
+  "https://media.giphy.com/media/3ohhwH2o675r7on8li/giphy.gif",
+  "https://media.giphy.com/media/l46Ccjl5C4U3IX8LK/giphy.gif",
+  "https://media.giphy.com/media/3ohhwMcn8E7kyHXkdk/giphy.gif",
+  "https://media.giphy.com/media/l0ExfRx8TA1k76zDW/giphy.gif",
+  "https://media.giphy.com/media/l0MYDCHjz0UbTzUxi/giphy.gif",
+  "https://media.giphy.com/media/l3vR7lwk13k7pR7tO/giphy.gif",
+  "https://media.giphy.com/media/3o7aD8XtWAfRcGmgWk/giphy.gif",
+  "https://media.giphy.com/media/l4Ki2obCyAQS5WhFe/giphy.gif",
+  "https://media.giphy.com/media/xUOrw4zpwHaXkxVoUo/giphy.gif",
+  "https://media.giphy.com/media/3o7aD7F1tm91xTAxPU/giphy.gif",
+  "https://media.giphy.com/media/l378rxLVo1KU7eHKI/giphy.gif",
+  "https://media.giphy.com/media/xUNd9J2rtpVHoT7NYg/giphy.gif",
+  "https://media.giphy.com/media/3o7ZeTMvuDlT530VxW/giphy.gif",
+  "https://media.giphy.com/media/l1J9ChhfXTyJUf69S/giphy.gif",
+  "https://media.giphy.com/media/l1J9DeUw4KaR2MWAO/giphy.gif",
+  "https://media.giphy.com/media/xT9IgG50Fb7Mi0prBC/giphy.gif",
+  "https://media.giphy.com/media/l0MYt6GyO3E2vkDso/giphy.gif",
+  "https://media.giphy.com/media/l2SsPLzP0fNZytyyE/giphy.gif",
+  "https://media.giphy.com/media/3o7GWugxdnmUqAOz2k/giphy.gif",
+  "https://media.giphy.com/media/l1J9CigbQog7myvmI/giphy.gif",
+  "https://media.giphy.com/media/xT9IgwqbJeR6LPoaE8/giphy.gif",
+  "https://media.giphy.com/media/l1J3sQr8F0BOVrR2w/giphy.gif",
+  "https://media.giphy.com/media/l3V0J3ytFyGHqiV7W/giphy.gif",
+  "https://media.giphy.com/media/xT0GqeSuP25lhIDyko/giphy.gif",
+  "https://media.giphy.com/media/l2JJKs3I69qfaQleE/giphy.gif",
+  "https://media.giphy.com/media/xUOwG0OViULTu18FF2/giphy.gif",
+  "https://media.giphy.com/media/l0ExfRx8TA1k76zDW/giphy.gif",
+  "https://media.giphy.com/media/l0HUpt2s9Pclgt9Vm/giphy.gif",
+  "https://media.giphy.com/media/l3vRfNA1p0rvhMSv2/giphy.gif",
+  "https://media.giphy.com/media/l2JhIIWspGjdZkkGg/giphy.gif",
+  "https://media.giphy.com/media/xT5LMBV6doJI5FLpbq/giphy.gif",
+  "https://media.giphy.com/media/3o7burlssk84v1zmak/giphy.gif",
+  "https://media.giphy.com/media/3o6nVSNIzj2sTz9guA/giphy.gif",
+  "https://media.giphy.com/media/l0HUpt2s9Pclgt9Vm/giphy.gif"
+];
+
+  // Liste von 50 stabilen Meme Bild URLs (10 hier, bitte erweitern)
+  const memePics = [
+    "https://i.imgur.com/9IoPiU3.gif",
+    "https://i.imgur.com/uOZEOBl.gif",
+    "https://i.imgur.com/NCxea8K.gif",
+    "https://i.imgur.com/45nWU47.gif",
+    "https://i.imgur.com/FjmXLxs.gif",
+    "https://i.imgur.com/41vTtCS.gif",
+    "https://i.imgur.com/UAk3GNN.gif",
+    "https://i.imgur.com/djP4XAU.gif",
+    "https://i.imgur.com/fd2Rro2.gif",
+    "https://i.imgur.com/uTxFoMf.gif"
+    "https://i.imgur.com/9IoPiU3.gif",
+  "https://i.imgur.com/uOZEOBl.gif",
+  "https://i.imgur.com/NCxea8K.gif",
+  "https://i.imgur.com/45nWU47.gif",
+  "https://i.imgur.com/FjmXLxs.gif",
+  "https://i.imgur.com/41vTtCS.gif",
+  "https://i.imgur.com/UAk3GNN.gif",
+  "https://i.imgur.com/djP4XAU.gif",
+  "https://i.imgur.com/fd2Rro2.gif",
+  "https://i.imgur.com/uTxFoMf.gif",
+  "https://i.imgur.com/45nWU47.gif",
+  "https://i.imgur.com/FjmXLxs.gif",
+  "https://i.imgur.com/41vTtCS.gif",
+  "https://i.imgur.com/UAk3GNN.gif",
+  "https://i.imgur.com/djP4XAU.gif",
+  "https://i.imgur.com/fd2Rro2.gif",
+  "https://i.imgur.com/uTxFoMf.gif",
+  "https://i.imgur.com/nRVDm3D.gif",
+  "https://i.imgur.com/xWNnkaL.png",
+  "https://i.imgur.com/yQVLqGA.gif",
+  "https://i.imgur.com/ppGqEeQ.gif",
+  "https://i.imgur.com/As7JSy6.gif",
+  "https://i.imgur.com/NWMBKbM.gif",
+  "https://i.imgur.com/WhUifQW.gif",
+  "https://i.imgur.com/jxfexIm.gif",
+  "https://i.imgur.com/zPhXQ5M.gif",
+  "https://i.imgur.com/MK14DRF.gif",
+  "https://i.imgur.com/e6wOucO.gif",
+  "https://i.imgur.com/VqHi0sj.gif",
+  "https://i.imgur.com/2Kvjaf3.gif",
+  "https://i.imgur.com/WPlB004.gif",
+  "https://i.imgur.com/itkI0xj.gif",
+  "https://i.imgur.com/anKucUN.gif",
+  "https://i.imgur.com/dps1cH6.gif",
+  "https://i.imgur.com/YrDGCbB.gif",
+  "https://i.imgur.com/i2uyRik.gif",
+  "https://i.imgur.com/E0JNWsb.gif",
+  "https://i.imgur.com/ZKugSvO.gif",
+  "https://i.imgur.com/d84eHR8.gif",
+  "https://i.imgur.com/7cloFTO.gif",
+  "https://i.imgur.com/D3ZPsfn.gif",
+  "https://i.imgur.com/a3DhXzx.gif",
+  "https://i.imgur.com/4Qz8ai5.gif",
+  "https://i.imgur.com/iNBc43P.gif",
+  "https://i.imgur.com/cTOoZfo.gif",
+  "https://i.imgur.com/XKDqmqA.gif",
+  "https://i.imgur.com/TNJNXpY.gif",
+  "https://i.imgur.com/xY74IQ2.gif",
+  "https://i.imgur.com/AnuFAEW.gif"
+];
+  
+  function createMeme(bar, urls) {
+    const meme = document.createElement('div');
+    meme.classList.add('meme');
+
+    const url = urls[Math.floor(Math.random() * urls.length)];
+    meme.style.backgroundImage = `url(${url})`;
+
+    const size = Math.floor(Math.random() * 80) + 40;
+    meme.style.width = `${size}px`;
+    meme.style.height = `${size}px`;
+
+    meme.style.top = Math.floor(Math.random() * (bar.clientHeight - size)) + 'px';
+    meme.style.left = bar === barTop ? `-${size}px` : `${window.innerWidth}px`;
+
+    bar.appendChild(meme);
+
+    const duration = Math.floor(Math.random() * 13000) + 7000;
+
+    let start = null;
+    function animate(timestamp) {
+      if (!start) start = timestamp;
+      const elapsed = timestamp - start;
+      const progress = elapsed / duration;
+
+      if (bar === barTop) {
+        meme.style.transform = `translateX(${window.innerWidth + size * 2 * progress}px)`;
+      } else {
+        meme.style.transform = `translateX(-${window.innerWidth + size * 2 * progress}px)`;
+      }
+
+      if (progress < 0.1) meme.style.opacity = (progress / 0.1 * 0.8).toString();
+      else if (progress > 0.9) meme.style.opacity = ((1 - progress) / 0.1 * 0.8).toString();
+      else meme.style.opacity = '0.8';
+
+      if (elapsed < duration) requestAnimationFrame(animate);
+      else meme.remove();
+    }
+    requestAnimationFrame(animate);
+  }
+
+
+  setInterval(() => {
+    if(document.querySelectorAll('.meme').length < 50) {
+      const bar = Math.random() < 0.5 ? barTop : barBottom;
+      const sourceList = Math.random() < 0.5 ? memeGifs : memePics;
+      createMeme(bar, sourceList);
+    }
+  }, 150);
+</script>
+</body>
+</html>
