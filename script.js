@@ -64,7 +64,7 @@ const memeGifs = [
     "https://media.giphy.com/media/l0HUpt2s9Pclgt9Vm/giphy.gif"
 ];
 
-  const memePics = [
+const memePics = [
     "https://i.imgur.com/9IoPiU3.gif",
     "https://i.imgur.com/uOZEOBl.gif",
     "https://i.imgur.com/NCxea8K.gif",
@@ -164,3 +164,4 @@ setInterval(()=>{
     createMeme(bar, sources);
   }
 }, 150);
+
