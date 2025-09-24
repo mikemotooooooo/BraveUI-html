@@ -1,56 +1,7 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Mega Meme Overlay Deluxe</title>
-<style>
-  html, body {
-    margin:0; padding:0; overflow:hidden; background: transparent;
-    width: 1920px; height:1080px; font-family: Arial, sans-serif;
-  }
-  .bar-top, .bar-bottom {
-    position: fixed; width: 100%; left: 0; overflow: visible; z-index: 100;
-    background: linear-gradient(270deg, #0c1a4a, #0c3ca8, #0057ff, #0c3ca8, #0c1a4a);
-    box-shadow: 0 0 40px rgba(0,170,255,0.7);
-  }
-  .bar-top {
-    top:0; height: 76px; border-bottom: 6px solid #0a55e2;
-  }
-  .bar-bottom {
-    bottom:0; height: 89px; border-top: 6px solid #0a61df;
-    background: linear-gradient(270deg, #001544, #003bbd, #007aff, #003bbd, #001544);
-    animation: pulsate 8s ease-in-out infinite reverse;
-  }
-  @keyframes pulsate {
-    0%,100% {
-      box-shadow: 0 0 30px #2c82ff, inset 0 0 40px #026cee;
-    }
-    50% {
-      box-shadow: 0 0 60px #44a2ff, inset 0 0 60px #0283ff;
-    }
-  }
-  .meme {
-    position: absolute;
-    pointer-events: none;
-    user-select: none;
-    will-change: transform, opacity;
-    mix-blend-mode: screen;
-    background-size: contain;
-    background-repeat: no-repeat;
-    opacity: 0.8;
-  }
-</style>
-</head>
-<body>
-  <div class="bar-top"></div>
-  <div class="bar-bottom"></div>
+const barTop = document.querySelector('.bar-top');
+const barBottom = document.querySelector('.bar-bottom');
 
-<script>
-  const barTop = document.querySelector('.bar-top');
-  const barBottom = document.querySelector('.bar-bottom');
-
-  const memeGifs = [
+const memeGifs = [
     "https://media.giphy.com/media/xT0GqssRweIhlz209i/giphy.gif",
     "https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif",
     "https://media.giphy.com/media/f9kQDHV2hSdHqys9iB/giphy.gif",
@@ -175,44 +126,41 @@
     "https://i.imgur.com/AnuFAEW.gif"
 ];
 
-  function createMeme(bar, urls) {
-    const meme = document.createElement('div');
-    meme.classList.add('meme');
-    const url = urls[Math.floor(Math.random()*urls.length)];
-    meme.style.backgroundImage = `url(${url})`;
-    const size = Math.floor(Math.random()*80)+40;
-    meme.style.width = `${size}px`;
-    meme.style.height = `${size}px`;
-    meme.style.top = Math.floor(Math.random()*(bar.clientHeight-size)) + 'px';
-    meme.style.left = bar===barTop ? `-${size}px` : `${window.innerWidth}px`;
-    bar.appendChild(meme);
-    const duration = Math.floor(Math.random()*13000) + 7000;
-    let start = null;
-    function animate(ts){
-      if (!start) start = ts;
-      const elapsed = ts - start;
-      const prog = elapsed/duration;
-      if(bar===barTop){
-        meme.style.transform = `translateX(${window.innerWidth + size*2 * prog}px)`;
-      } else {
-        meme.style.transform = `translateX(-${window.innerWidth + size*2 * prog}px)`;
-      }
-      if(prog < 0.1) meme.style.opacity = (prog/0.1*0.8).toString();
-      else if(prog > 0.9) meme.style.opacity = ((1-prog)/0.1*0.8).toString();
-      else meme.style.opacity = '0.8';
-      if(elapsed < duration) requestAnimationFrame(animate);
-      else meme.remove();
+ function createMeme(bar, urls) {
+  const meme = document.createElement('div');
+  meme.classList.add('meme');
+  const url = urls[Math.floor(Math.random()*urls.length)];
+  meme.style.backgroundImage = `url(${url})`;
+  const size = Math.floor(Math.random()*80)+40;
+  meme.style.width = `${size}px`;
+  meme.style.height = `${size}px`;
+  meme.style.top = Math.floor(Math.random()*(bar.clientHeight-size)) + 'px';
+  meme.style.left = bar===barTop ? `-${size}px` : `${window.innerWidth}px`;
+  bar.appendChild(meme);
+  const duration = Math.floor(Math.random()*13000) + 7000;
+  let start = null;
+  function animate(ts){
+    if (!start) start = ts;
+    const elapsed = ts - start;
+    const prog = elapsed/duration;
+    if(bar===barTop){
+      meme.style.transform = `translateX(${window.innerWidth + size*2 * prog}px)`;
+    } else {
+      meme.style.transform = `translateX(-${window.innerWidth + size*2 * prog}px)`;
     }
-    requestAnimationFrame(animate);
+    if(prog < 0.1) meme.style.opacity = (prog/0.1*0.8).toString();
+    else if(prog > 0.9) meme.style.opacity = ((1-prog)/0.1*0.8).toString();
+    else meme.style.opacity = '0.8';
+    if(elapsed < duration) requestAnimationFrame(animate);
+    else meme.remove();
   }
+  requestAnimationFrame(animate);
+}
 
-  setInterval(()=>{
-    if(document.querySelectorAll('.meme').length<50){
-      const bar = Math.random()<0.5 ? barTop : barBottom;
-      const sources = Math.random()<0.5 ? memeGifs : memePics;
-      createMeme(bar, sources);
-    }
-  }, 150);
-</script>
-</body>
-</html>
+setInterval(()=>{
+  if(document.querySelectorAll('.meme').length<50){
+    const bar = Math.random()<0.5 ? barTop : barBottom;
+    const sources = Math.random()<0.5 ? memeGifs : memePics;
+    createMeme(bar, sources);
+  }
+}, 150);
