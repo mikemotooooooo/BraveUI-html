@@ -11,7 +11,7 @@ const memeGifs = [
     "https://media.giphy.com/media/26ufl4wNHVOSZBHTW/giphy.gif",
     "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif",
     "https://media.giphy.com/media/WLZzJMwGEHT32/giphy.gif",
-    "https://media.giphy.com/media/3o6Zt7x6nUHPSUMkgQ/giphy.gif"
+    "https://media.giphy.com/media/3o6Zt7x6nUHPSUMkgQ/giphy.gif",
     "https://media.giphy.com/media/xT0GqssRweIhlz209i/giphy.gif",
     "https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif",
     "https://media.giphy.com/media/f9kQDHV2hSdHqys9iB/giphy.gif",
@@ -74,7 +74,7 @@ const memePics = [
     "https://i.imgur.com/UAk3GNN.gif",
     "https://i.imgur.com/djP4XAU.gif",
     "https://i.imgur.com/fd2Rro2.gif",
-    "https://i.imgur.com/uTxFoMf.gif"
+    "https://i.imgur.com/uTxFoMf.gif",
     "https://i.imgur.com/9IoPiU3.gif",
     "https://i.imgur.com/uOZEOBl.gif",
     "https://i.imgur.com/NCxea8K.gif",
@@ -164,4 +164,5 @@ setInterval(()=>{
     createMeme(bar, sources);
   }
 }, 150);
+
 
